@@ -23,7 +23,7 @@ done
 
 function verb {
   if [ "$VERBOSE" = true ]; then
-    echo "$1"
+    echo "#$1"
   fi
 }
 
