@@ -5,6 +5,7 @@ RED="\033[91m"
 GRN="\033[92m"
 NRM="\033[0m"
 
+# build temp and log (replay) script
 TMP=./tmp
 mkdir -p $TMP
 LOG=$TMP/log.sh
@@ -12,8 +13,10 @@ if [ -f $LOG ]; then
   rm $LOG
 fi
 echo "#!/bin/bash" >> $LOG
+chmod +x $LOG
 VERBOSE=false
 
+# parse flags
 while getopts ":v" opt; do
   case ${opt} in
     v ) VERBOSE=true
@@ -28,7 +31,7 @@ function log {
   if [ "$VERBOSE" = true ]; then
     echo -e $LINE
   fi
-  echo -e $LINE >> $LOG
+  echo $LINE >> $LOG
 }
 
 function pass {
@@ -46,21 +49,32 @@ function com {
   $1
 }
 
+log "check dependencies"
 log "run test to see if homebrew is installed"
 type brew >/dev/null 2>&1 || {
   fail "Brew is missing, please install homebrew"
   exit 1
 }
-
 pass "homebrew is installed"
-
 log "dependencies"
-for dependency in curl tmux git; do
+for dependency in curl tmux git openssl; do
   log "ensure dependency '$dependency' exists on the system"
   type $dependency >/dev/null 2>&1 || {
     log "Attempting to install $dependency using brew"
     com "brew install $dependency"
   }
 done
+
+log "check for new version"
+DBHASH=$(openssl dgst -sha256 ./dboot)
+com "git pull origin master"
+NEWDBHASH=$(openssl dgst -sha256 ./dboot)
+if [ "$DBHASH" = "$NEWDBHASH" ]; then
+  pass "no updates"
+else
+  log "pulled dboot is different; running..."
+  com "./dboot"
+fi
+
 pass "dboot complete"
 
