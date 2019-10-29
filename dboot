@@ -6,41 +6,61 @@ GRN="\033[92m"
 NRM="\033[0m"
 
 TMP=./tmp
-
+mkdir -p $TMP
+LOG=$TMP/log.sh
+if [ -f $LOG ]; then
+  rm $LOG
+fi
+echo "#!/bin/bash" >> $LOG
 VERBOSE=false
 
 while getopts ":v" opt; do
   case ${opt} in
-    v )
-      echo "verbose dboot"
-      VERBOSE=true
+    v ) VERBOSE=true
       ;;
-    \? )
-      echo "Usage: ./dboot [-v]"
+    \? ) echo "Usage: ./dboot [-v]"
       ;;
   esac
 done
 
-function verb {
+function log {
+  LINE="#$1"
   if [ "$VERBOSE" = true ]; then
-    echo "#$1"
+    echo -e $LINE
   fi
+  echo -e $LINE >> $LOG
 }
 
-verb "run test to see if homebrew is installed"
+function pass {
+  log "${GRN}$1${NRM}"
+}
+
+function fail {
+  log "${RED}$1${NRM}"
+}
+
+function com {
+  log "executing command"
+  echo "$1" >> $LOG
+  echo "$1"
+  $1
+}
+
+log "run test to see if homebrew is installed"
 type brew >/dev/null 2>&1 || {
-  echo -e "${RED}Brew is missing, please install homebrew${NRM}"
+  fail "Brew is missing, please install homebrew"
   exit 1
 }
 
-verb "homebrew is installed"
+pass "homebrew is installed"
 
-verb "dependencies"
+log "dependencies"
 for dependency in curl tmux git; do
-  verb "ensure dependency '$dependency' exists on the system"
+  log "ensure dependency '$dependency' exists on the system"
   type $dependency >/dev/null 2>&1 || {
-    verb "Attempting to install $dependency using brew"
-    brew install $dependency
+    log "Attempting to install $dependency using brew"
+    com "brew install $dependency"
   }
 done
-verb "dboot complete"
+pass "dboot complete"
+
