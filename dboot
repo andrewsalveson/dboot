@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# text colors
+RED="\033[91m"
+GRN="\033[92m"
+NRM="\033[0m"
+
+TMP=./tmp
+
+VERBOSE=false
+
+while getopts ":v" opt; do
+  case ${opt} in
+    v )
+      echo "verbose dboot"
+      VERBOSE=true
+      ;;
+    \? )
+      echo "Usage: ./dboot [-v]"
+      ;;
+  esac
+done
+
+function verb {
+  if [ "$VERBOSE" = true ]; then
+    echo "$1"
+  fi
+}
+
+verb "run test to see if homebrew is installed"
+type brew >/dev/null 2>&1 || {
+  echo -e "${RED}Brew is missing, please install homebrew${NRM}"
+  exit 1
+}
+
+verb "homebrew is installed"
+
+verb "dependencies"
+for dependency in curl tmux git; do
+  verb "ensure dependency '$dependency' exists on the system"
+  type $dependency >/dev/null 2>&1 || {
+    verb "Attempting to install $dependency using brew"
+    brew install $dependency
+  }
+done
+verb "dboot complete"
