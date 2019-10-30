@@ -49,21 +49,23 @@ function com {
   $1
 }
 
-log "check dependencies"
-log "run test to see if homebrew is installed"
-type brew >/dev/null 2>&1 || {
-  fail "Brew is missing, please install homebrew"
-  exit 1
-}
-pass "homebrew is installed"
-log "dependencies"
-for dependency in curl tmux git openssl; do
-  log "ensure dependency '$dependency' exists on the system"
-  type $dependency >/dev/null 2>&1 || {
-    log "Attempting to install $dependency using brew"
-    com "brew install $dependency"
-  }
-done
+log "OS: $OSTYPE"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  fail "no scripts for linux-gnu"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  source ./dboot-macos
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+  fail "no scripts for cygwin"
+elif [[ "$OSTYPE" == "msys" ]]; then
+  fail "no scripts for msys"
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+  fail "no scripts for freebsd"
+else
+  fail "unknown OS"
+fi
+
+
+
 
 log "check for new version"
 DBHASH=$(openssl dgst -sha256 ./dboot)
