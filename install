@@ -1,0 +1,20 @@
+#!/bin/bash
+
+cd rc
+log "check installation in shell startup scripts"
+for RCF in .bashrc .zshrc;do
+  log "performing installation check for $RCF"
+  if [ -f ~/$RCF ]; then
+    if fgrep '#BEGIN dboot' ~/$RCF
+    then
+      log "dboot already added to $RCF"
+    else
+      log "appending dboot to $RCF"
+      cat ./$RCF >> ~/$RCF
+    fi
+  else
+    log "could not find $RCF"
+  fi
+done
+cd ..
+log "rc files installed"

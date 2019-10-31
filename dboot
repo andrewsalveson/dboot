@@ -6,7 +6,7 @@ GRN="\033[92m"
 NRM="\033[0m"
 
 # build temp and log (replay) script
-TMP=./tmp
+TMP=~/dboot/tmp
 mkdir -p $TMP
 LOG=$TMP/log.sh
 if [ -f $LOG ]; then
@@ -64,9 +64,6 @@ else
   fail "unknown OS"
 fi
 
-
-
-
 log "check for new version"
 DBHASH=$(openssl dgst -sha256 ./dboot)
 com "git pull origin master"
@@ -76,7 +73,10 @@ if [ "$DBHASH" = "$NEWDBHASH" ]; then
 else
   log "pulled dboot is different; running..."
   com "./dboot"
+  exit 0
 fi
+
+source ./install
 
 pass "dboot complete"
 
