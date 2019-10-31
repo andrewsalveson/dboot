@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# temporarily move into dboot folder
+OLDWD=$(pwd)
+cd ~/dboot
+
+
 # text colors
 RED="\033[91m"
 GRN="\033[92m"
@@ -22,6 +27,7 @@ while getopts ":v" opt; do
     v ) VERBOSE=true
       ;;
     \? ) echo "Usage: ./dboot [-v]"
+      exit 1
       ;;
   esac
 done
@@ -79,4 +85,7 @@ fi
 source ./install
 
 pass "dboot complete"
+
+# return to original working directory
+cd $OLDWD
 
