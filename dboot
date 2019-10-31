@@ -51,7 +51,7 @@ function com {
 
 log "OS: $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  fail "no scripts for linux-gnu"
+  source ./dboot-linux-gnu
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   source ./dboot-macos
 elif [[ "$OSTYPE" == "cygwin" ]]; then

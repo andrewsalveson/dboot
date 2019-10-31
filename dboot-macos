@@ -7,10 +7,11 @@ type brew >/dev/null 2>&1 || {
 }
 pass "homebrew is installed"
 log "dependencies"
-for dependency in curl tmux git openssl; do
+for dependency in curl tmux git openssl nvim; do
   log "ensure dependency '$dependency' exists on the system"
   type $dependency >/dev/null 2>&1 || {
     log "Attempting to install $dependency using brew"
     com "brew install $dependency"
   }
 done
+
