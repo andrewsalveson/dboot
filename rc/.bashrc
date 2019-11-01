@@ -1,3 +1,4 @@
 #BEGIN dboot
-./dboot/dboot
+~/dboot/dboot
 #END dboot
+
