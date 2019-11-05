@@ -70,17 +70,17 @@ else
   fail "unknown OS"
 fi
 
-log "check for new version"
-DBHASH=$(openssl dgst -sha256 ./dboot)
-com "git pull origin master"
-NEWDBHASH=$(openssl dgst -sha256 ./dboot)
-if [ "$DBHASH" = "$NEWDBHASH" ]; then
-  pass "no updates"
-else
-  log "pulled dboot is different; running..."
-  com "./dboot"
-  exit 0
-fi
+# log "check for new version"
+# DBHASH=$(openssl dgst -sha256 ./dboot)
+# com "git pull origin master"
+# NEWDBHASH=$(openssl dgst -sha256 ./dboot)
+# if [ "$DBHASH" = "$NEWDBHASH" ]; then
+#   pass "no updates"
+# else
+#   log "pulled dboot is different; running..."
+#   com "./dboot"
+#   exit 0
+# fi
 
 source ./install
 
