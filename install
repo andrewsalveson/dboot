@@ -5,7 +5,7 @@ log "check installation in shell startup scripts"
 for RCF in .bashrc .zshrc;do
   log "performing installation check for $RCF"
   if [ -f ~/$RCF ]; then
-    if fgrep '#BEGIN dboot' ~/$RCF
+    if fgrep -q '#BEGIN dboot' ~/$RCF
     then
       log "dboot already added to $RCF"
     else
