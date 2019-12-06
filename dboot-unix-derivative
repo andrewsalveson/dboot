@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# kinda cool weather thing
+alias wx='curl wttr.in'
+
