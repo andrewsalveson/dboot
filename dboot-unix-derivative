@@ -2,4 +2,4 @@
 
 # kinda cool weather thing
 alias wx='curl wttr.in'
-
+alias la='ls -lah'
