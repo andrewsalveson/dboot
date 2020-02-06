@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="0.1"
+VERSION="0.2"
 
 # temporarily move into dboot folder
 OLDWD=$(pwd)
@@ -19,7 +19,10 @@ echo "
    \\/___/ / x   x /_/    
       \\  /  ___  /     
  BOOT  \\/_______/  BOT
-       \\/_/ v$VERSION
+       \\/_/       v$VERSION
+
+   DONT B A BLOK HED
+
 "
 # build temp and log (replay) script
 TMP=~/dboot/tmp
