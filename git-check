@@ -1,0 +1,30 @@
+#!/bin/bash
+
+EXPIRY=600
+
+if [[ -f last_git_check ]]; then
+  LAST=$(cat last_git_check)
+  SINCE=`expr $(date +%s) - $LAST`
+  if [ "$SINCE" -lt "$EXPIRY" ]; then
+    echo "# the froot is fresh"
+    exit 0
+  fi
+fi
+
+date +%s > last_git_check
+
+echo "# check for new version"
+
+if ( git ls-remote ) then
+  DBHASH=$(openssl dgst -sha256 ./dboot)
+  git pull origin master
+  NEWDBHASH=$(openssl dgst -sha256 ./dboot)
+  if [ "$DBHASH" = "$NEWDBHASH" ]; then
+    echo "# no updates"
+    exit 0
+  else
+    ./dboot
+  fi
+else
+  echo "# could not find git remote"
+fi

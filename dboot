@@ -1,4 +1,5 @@
 #!/bin/bash
+VERSION="0.1"
 
 # temporarily move into dboot folder
 OLDWD=$(pwd)
@@ -9,7 +10,17 @@ cd ~/dboot
 RED="\033[91m"
 GRN="\033[92m"
 NRM="\033[0m"
-
+echo "
+              __
+        _____/\\_\\     
+ BLOK  /\\   / / /  HED
+    __/_ \\  \\/_/ \\__     
+   /\\___\\ \\_______\\_\\    
+   \\/___/ / x   x /_/    
+      \\  /  ___  /     
+ BOOT  \\/_______/  BOT
+       \\/_/ v$VERSION
+"
 # build temp and log (replay) script
 TMP=~/dboot/tmp
 mkdir -p $TMP
@@ -72,21 +83,8 @@ else
   fail "unknown OS"
 fi
 
-if ( git ls-remote ) then
-  log "check for new version"
-  DBHASH=$(openssl dgst -sha256 ./dboot)
-  com "git pull origin master"
-  NEWDBHASH=$(openssl dgst -sha256 ./dboot)
-  if [ "$DBHASH" = "$NEWDBHASH" ]; then
-    pass "no updates"
-  else
-    log "pulled dboot is different; running..."
-    com "./dboot"
-    exit 0
-  fi
-else
-  log "could not find git remote"
-fi
+log "check repo status"
+./git-check
 
 source ./install
 
