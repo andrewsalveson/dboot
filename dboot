@@ -76,6 +76,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   source ./dboot-unix-derivative
   source ./dboot-macos
+elif [[ "$OSTYPE" == "msys" ]]; then
+  source ./dboot-msys
 elif [[ "$OSTYPE" == "cygwin" ]]; then
   fail "no scripts for cygwin"
 elif [[ "$OSTYPE" == "msys" ]]; then

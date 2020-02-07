@@ -1,0 +1,21 @@
+#!/bin/bash
+
+log "checking dependencies"
+if type pacman >/dev/null 2>&1; then
+	for dependency in curl tmux git open; do
+		log "ensure dependency '$dependency' exists on the system"
+		type $dependency >/dev/null 2>&1 || {
+			log "Attempting to install $dependency using pacman"
+		com "pacman -S $dependency"
+		}
+	done
+else
+	log "pacman not found, attempting direct download"
+	if [[ "$MSYSTEM" == "MINGW64" ]]; then
+		type tmux >/dev/null 2>&1 || {
+			wget -qO- http://repo.msys2.org/msys/x86_64/tmux-3.0.a-1-x86_64.pkg.tar.xz | tar xf -C /bin
+		}
+	else
+		fail "unknown architecture: $MSYSTEM"
+	fi
+fi
