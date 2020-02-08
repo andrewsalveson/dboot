@@ -73,7 +73,7 @@ log "OS: $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   source ./dboot-unix-derivative
   source ./dboot-linux-gnu
-if [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
+elif [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
   log "probably a Raspberry Pi"
   source ./dboot-unix-derivative
   source ./dboot-linux-gnueabihf
