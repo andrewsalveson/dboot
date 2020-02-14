@@ -28,3 +28,5 @@ if ( git ls-remote ) then
 else
   echo "# could not find git remote"
 fi
+
+./repo-check

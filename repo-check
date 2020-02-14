@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# temporarily move into the home folder
+OLDPWD=$(pwd)
+cd ~
+echo "checking todo"
+if [ -f todo ]; then
+	git clone git@github.com:andrewsalveson/todo
+else
+	cd todo
+	git fetch
+fi
+cd ~
+echo "checking notes"
+if [ -f notes ]; then
+	git clone git@github.com:andrewsalveson/notes
+else 
+	cd notes
+	git fetch
+fi
+
+cd $OLDPWD
