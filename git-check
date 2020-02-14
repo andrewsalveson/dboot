@@ -15,6 +15,8 @@ date +%s > last_git_check
 
 echo "# check for new version"
 
+./repo-check
+
 if ( git ls-remote ) then
   DBHASH=$(openssl dgst -sha256 ./dboot)
   git pull origin master
@@ -28,5 +30,3 @@ if ( git ls-remote ) then
 else
   echo "# could not find git remote"
 fi
-
-./repo-check
