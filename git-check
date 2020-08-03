@@ -6,7 +6,7 @@ if [[ -f last_git_check ]]; then
   LAST=$(cat last_git_check)
   SINCE=`expr $(date +%s) - $LAST`
   if [ "$SINCE" -lt "$EXPIRY" ]; then
-    echo "#  this froot is fresh"
+    echo "#  dis froot is fresh"
     exit 0
   fi
 fi
