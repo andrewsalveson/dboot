@@ -84,8 +84,6 @@ elif [[ "$OSTYPE" == "msys" ]]; then
   source ./dboot-msys
 elif [[ "$OSTYPE" == "cygwin" ]]; then
   fail "no scripts for cygwin"
-elif [[ "$OSTYPE" == "msys" ]]; then
-  fail "no scripts for msys"
 elif [[ "$OSTYPE" == "freebsd"* ]]; then
   fail "no scripts for freebsd"
 else
