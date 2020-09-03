@@ -9,6 +9,11 @@ for dependency in curl tmux git openssl; do
   }
 done
 
+type powerline >/dev/null 2>&1 || {
+  # requires sudo for some reason ...
+  sudo apt install --yes powerline
+}
+
 type nvim >/dev/null 2>&1 || {
   log "installing nvim"
   if [ "$EUID" -ne 0 ]; then

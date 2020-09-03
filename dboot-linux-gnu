@@ -36,3 +36,4 @@ case $OS in
 	\? ) fail "no script for $OS"
 		;;
 esac
+
