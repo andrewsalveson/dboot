@@ -13,7 +13,7 @@ NRM="\033[0m"
 echo "
               __
         _____/\\_\\     
- BLOK  /\\   / / /  HED
+ BLOK  /\\   / / /  HEAD
     __/_ \\  \\/_/ \\__     
    /\\___\\ \\_______\\_\\    
    \\/___/ / x   x /_/    
@@ -21,7 +21,7 @@ echo "
  BOOT  \\/_______/  BOT
        \\/_/       v$VERSION
 
-   DONT B A BLOK HED
+   DONT BE A BLOK HEAD
 
 "
 # build temp and log (replay) script
