@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # from https://unix.stackexchange.com/questions/90990/less-command-and-syntax-highlighting
-LESSPIPE=/usr/share/source-highlight/src-hilite-lesspipe.sh
-if [ ! -f "$LESSPIPE" ]; then
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' source-highlight|grep "install ok installed")
+if [ "" = "$PKG_OK" ]; then
   echo "Adding Syntax Highlighting to Less"
   sudo apt install source-highlight -y
-  export LESSOPEN="| $LESSPIPE %s"
-  export LESS=' -R '
 fi
+

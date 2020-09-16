@@ -9,5 +9,11 @@ if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
   source /usr/share/powerline/bindings/bash/powerline.sh
 fi
 
+# Add Syntax Highlighting to Less
+LESSPIPE=/usr/share/source-highlight/src-hilite-lesspipe.sh
+if [ -f "$LESSPIPE" ]; then
+  export LESSOPEN="| $LESSPIPE %s"
+  export LESS=' -R '
+fi
 #END dboot
 
