@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source ./dboot-linux-debian
+
+
 log "checking dependencies"
 for dependency in curl tmux git openssl; do
   log "ensure dependency '$dependency' exists on the system"

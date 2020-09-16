@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Adding Syntax Highlighting to Less
+# from https://unix.stackexchange.com/questions/90990/less-command-and-syntax-highlighting
+apt install source-highlight
+export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+export LESS=' -R '
