@@ -1,19 +1,19 @@
 #!/bin/bash
-
+. ./console
 EXPIRY=3600
 
 if [[ -f last_git_check ]]; then
   LAST=$(cat last_git_check)
   SINCE=`expr $(date +%s) - $LAST`
   if [ "$SINCE" -lt "$EXPIRY" ]; then
-    echo "#  this fruit is fresh"
+    pass "this fruit is fresh"
     exit 0
   fi
 fi
 
 date +%s > last_git_check
 
-echo "# check for new version"
+log "check for new version"
 
 ./repo-check
 
@@ -22,11 +22,12 @@ if ( git ls-remote ) then
   git pull origin master
   NEWDBHASH=$(openssl dgst -sha256 ./dboot)
   if [ "$DBHASH" = "$NEWDBHASH" ]; then
-    echo "# no updates"
+    pass "no updates"
     exit 0
   else
     ./dboot
   fi
 else
-  echo "# could not find git remote"
+  fail "could not find git remote"
 fi
+

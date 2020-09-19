@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# text colors
+RED="\033[91m"
+GRN="\033[92m"
+NRM="\033[0m"
+CYA="\033[36m"
+
+TMP=~/dboot/tmp
+LOG=$TMP/log.sh
+
+VERBOSE=false
+
+# parse flags
+while getopts ":v" opt; do
+  case ${opt} in
+    v ) VERBOSE=true
+      ;;
+    \? ) echo "Usage: ./dboot [-v]"
+      exit 1
+      ;;
+  esac
+done
+
+function log {
+  LINE="#$1"
+  if [ "$VERBOSE" = true ]; then
+    echo -e $LINE
+  fi
+  echo $LINE >> $LOG
+}
+
+function info {
+  log "${CYA}$1${NRM}"
+}
+
+function pass {
+  log "${GRN}$1${NRM}"
+}
+
+function fail {
+  log "${RED}$1${NRM}"
+}
+
+function com {
+  log "executing command"
+  echo "$1" >> $LOG
+  echo "$1"
+  $1
+}
+

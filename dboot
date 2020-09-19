@@ -4,12 +4,8 @@ VERSION="0.2"
 # temporarily move into dboot folder
 OLDWD=$(pwd)
 cd ~/dboot
+. ./console
 
-
-# text colors
-RED="\033[91m"
-GRN="\033[92m"
-NRM="\033[0m"
 echo "
               __
         _____/\\_\\     
@@ -24,58 +20,25 @@ echo "
    DONT BE A BLOK HEAD
 
 "
-# build temp and log (replay) script
+
 TMP=~/dboot/tmp
 mkdir -p $TMP
 LOG=$TMP/log.sh
+
+# build temp and log (replay) script
 if [ -f $LOG ]; then
   rm $LOG
 fi
 echo "#!/bin/bash" >> $LOG
 chmod +x $LOG
-VERBOSE=false
 
-# parse flags
-while getopts ":v" opt; do
-  case ${opt} in
-    v ) VERBOSE=true
-      ;;
-    \? ) echo "Usage: ./dboot [-v]"
-      exit 1
-      ;;
-  esac
-done
-
-function log {
-  LINE="#$1"
-  if [ "$VERBOSE" = true ]; then
-    echo -e $LINE
-  fi
-  echo $LINE >> $LOG
-}
-
-function pass {
-  log "${GRN}$1${NRM}"
-}
-
-function fail {
-  log "${RED}$1${NRM}"
-}
-
-function com {
-  log "executing command"
-  echo "$1" >> $LOG
-  echo "$1"
-  $1
-}
-
-log "OS: $OSTYPE"
+info "OS: $OSTYPE"
 set +a
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   source ./dboot-unix-derivative
   source ./dboot-linux-gnu
 elif [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
-  log "probably a Raspberry Pi"
+  info "probably a Raspberry Pi"
   source ./dboot-unix-derivative
   source ./dboot-linux-gnueabihf
 elif [[ "$OSTYPE" == "darwin"* ]]; then

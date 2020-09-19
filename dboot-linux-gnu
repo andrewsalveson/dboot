@@ -1,5 +1,4 @@
 #!/bin/bash
-
 log "get Linux flavor"
 if [ -f /etc/os-release ]; then
 	# feedesktop.org and systemd
@@ -27,8 +26,8 @@ else
 	VER=$(uname -r)
 fi
 
-log "linux flavor: $OS"
-log "release: $VER"
+info "linux flavor: $OS"
+info "release: $VER"
 
 case $OS in
 	Ubuntu ) source ./dboot-ubuntu
