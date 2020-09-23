@@ -1,5 +1,5 @@
 #BEGIN dboot
-~/dboot/dboot
+source ~/dboot/dboot
 
 # Powerline configuration
 if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
