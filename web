@@ -1,0 +1,21 @@
+#!/bin/sh
+type git >/dev/null 2>&1 || {
+  echo "web installer requires git"
+  exit 1
+}
+OLDWD=$(pwd)
+cd ~
+if [ -d ./dboot ]; then
+  echo "dboot folder already exists in home directory ... "
+  if [ -f ./dboot/dboot ]; then
+    echo "... and has dboot file; attempting to run ..."
+    ./dboot/dboot
+  else
+    echo "... but does not have dboot file. Remove this folder and try again."
+  fi
+else
+  git clone git@github.com:andrewsalveson/dboot
+  chmod +x ~/dboot/dboot
+  ./dboot/dboot
+fi
+cd $OLDWD
