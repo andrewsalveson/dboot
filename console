@@ -27,7 +27,7 @@ function log {
   if [ "$VERBOSE" = true ]; then
     echo -e $LINE
   fi
-  echo $LINE >> $LOG
+  echo -e $LINE >> $LOG
 }
 
 function info {

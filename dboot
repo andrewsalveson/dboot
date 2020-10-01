@@ -6,7 +6,7 @@ OLDWD=$(pwd)
 cd ~/dboot
 . ./console
 
-echo "
+echo -e "
               __
         _____/\\_\\     
  BLOK  /\\   / / /  HEAD
@@ -15,7 +15,7 @@ echo "
    \\/___/ / x   x /_/    
       \\  /  ___  /     
  BOOT  \\/_______/  BOT
-       \\/_/       v$VERSION
+       \\/_/       v${CYA}$VERSION${NRM}
 
    DONT BE A BLOK HEAD
 
