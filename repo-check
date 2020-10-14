@@ -3,16 +3,6 @@
 # temporarily move into the home folder
 OLDPWD=$(pwd)
 cd ~
-echo "checking todo"
-if [ -d todo ]; then
-	cd todo
-  branch=$(git symbolic-ref --short HEAD)
-	git fetch
-  git pull origin $branch
-else
-	git clone git@github.com:andrewsalveson/todo
-fi
-cd ~
 echo "checking notes"
 if [ -d notes ]; then
 	cd notes
