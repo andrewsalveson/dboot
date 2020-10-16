@@ -3,3 +3,10 @@
 # kinda cool weather thing
 alias wx='curl wttr.in'
 alias la='ls -lah'
+
+clean-tmux() {
+  echo "kill tmux sessions that start with numerals"
+  SESSIONS=$(tmux list-sessions | grep -E ^[0-9]+ | awk '{split($0,a,":"); print a[1]}')
+  for i in $SESSIONS; do tmux kill-session -t $i; done;
+}
+
