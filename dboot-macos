@@ -5,7 +5,7 @@ type brew >/dev/null 2>&1 || {
   log "Brew is missing, attempting to install ..."
   # Homebrew recommends this folder for Macs with Intel chips:
   (cd /usr/local && \
-    mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+    sudo mkdir homebrew && sudo curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
   )
 }
 pass "homebrew is installed"
