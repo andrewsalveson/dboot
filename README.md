@@ -8,5 +8,5 @@ wget https://raw.githubusercontent.com/andrewsalveson/dboot/master/web -O - | sh
 ```
 Using `curl`:
 ```
-curl https://raw.githubusercontent.com/andrewsalveson/dboot/master/web | sh
+curl -sSl https://raw.githubusercontent.com/andrewsalveson/dboot/master/web | sh
 ```
