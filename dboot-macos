@@ -4,9 +4,7 @@ log "run test to see if homebrew is installed"
 type brew >/dev/null 2>&1 || {
   log "Brew is missing, attempting to install ..."
   # Homebrew recommends this folder for Macs with Intel chips:
-  (cd /usr/local && \
-    sudo mkdir homebrew && sudo curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-  )
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 pass "homebrew is installed"
 log "dependencies"
