@@ -1,25 +1,44 @@
 #!/bin/bash
 VERSION="0.3"
 
+tput init
+
 # temporarily move into dboot folder
 OLDWD=$(pwd)
 cd ~/dboot
 . ./console
 
-echo -e "
-              __
-        _____/\\_\\     
- BLOK  /\\   / / /  HEAD
-    __/_ \\  \\/_/ \\__     
-   /\\___\\ \\_______\\_\\    
-   \\/___/ / x   x /_/    
-      \\  /  ___  /     
- BOOT  \\/_______/  BOT
-       \\/_/       v${CYA}$VERSION${NRM}
+LOGO=./BLOKHEAD
+BUILD=./WIDJIT
+BUILD_WIDTH=14
 
-   DONT BE A BLOK HEAD
+# print logo
+LOGO_LINES=$(cat $LOGO | wc -l | xargs)
 
-"
+while IFS= read -r LINE
+do
+	echo "$LINE"
+	sleep 0.005
+done <"$LOGO"
+
+COUNT=1
+COLUMNS=$(tput cols)
+while IFS= read -r LINE
+do
+	tput cup $COUNT `expr \( $COLUMNS -  \( $BUILD_WIDTH + 4 \) \)`
+	echo "$LINE"
+	sleep 0.005
+	COUNT=$((COUNT+1))
+done <"$BUILD"
+
+
+TOLAST=`expr \( $LOGO_LINES + 2 \)`
+echo -e "$(tput cup 8 19)v${CYA}$VERSION${NRM}$(tput cup 4 4)"
+
+
+tput cup $TOLAST
+
+
 
 TMP=~/dboot/tmp
 mkdir -p $TMP

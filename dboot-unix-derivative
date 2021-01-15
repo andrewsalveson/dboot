@@ -6,9 +6,13 @@ alias la='ls -lah'
 # docker-specific
 alias dc='docker-compose'
 
+# alias notes
+# TODO: only do this if notes installed
+alias note='~/notes/find'
+
 clean-tmux() {
   echo "kill tmux sessions that start with numerals"
-  SESSIONS=$(tmux list-sessions | grep -E ^[0-9]+ | awk '{split($0,a,":"); print a[1]}')
-  for i in $SESSIONS; do tmux kill-session -t $i; done;
+  SESSIONS=$(tmux list-sessions | grep -E "^[0-9]+" | awk '{split($0,a,":"); print a[1]}')
+  echo $SESSIONS | tr '\n' '\0' | xargs tmux kill-session -t
 }
 
