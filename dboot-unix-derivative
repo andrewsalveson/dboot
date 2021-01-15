@@ -3,6 +3,8 @@
 # kinda cool weather thing
 alias wx='curl wttr.in'
 alias la='ls -lah'
+# docker-specific
+alias dc='docker-compose'
 
 clean-tmux() {
   echo "kill tmux sessions that start with numerals"
