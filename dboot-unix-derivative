@@ -13,6 +13,6 @@ alias note='~/notes/find'
 clean-tmux() {
   echo "kill tmux sessions that start with numerals"
   SESSIONS=$(tmux list-sessions | grep -E "^[0-9]+" | awk '{split($0,a,":"); print a[1]}')
-  echo $SESSIONS | tr '\n' '\0' | xargs tmux kill-session -t
+  echo $SESSIONS | tr '\n' '\0' | xargs --null tmux kill-session -t
 }
 
