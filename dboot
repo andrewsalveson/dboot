@@ -13,6 +13,25 @@ BUILD=./WIDJIT
 BG=./BG
 BUILD_WIDTH=14
 
+function overlay {
+  F=$1
+  ROW=$2
+  COL=$3
+  while IFS= read -r LINE
+  do
+    LINE_CHARS=$(grep -o . <<<"$LINE" | wc -l)
+    for COL_i in $(eval echo {0..$LINE_CHARS})
+    do
+      tput cup $ROW $(( $COL + $COL_i ))
+      CHAR="${LINE:$COL_i:1}"
+      if [ "$CHAR" != "~" ]; then
+        echo "$CHAR"
+      fi
+    done
+    ROW=$((ROW+1))
+  done <"$F"
+}
+
 # print background
 BG_LINES=$(cat $BG | wc -l | xargs)
 tput dim
@@ -25,36 +44,9 @@ tput sgr0
 
 # print logo
 tput bold
-tput setaf 6
-LOGO_LINES=$(cat $LOGO | wc -l | xargs)
-ROW=1
-LONGEST=0
-while IFS= read -r LINE
-do
-  LINE_CHARS=$(grep -o . <<<"$LINE" | wc -l)
-  if [ $LINE_CHARS -gt $LONGEST ]; then
-    LONGEST=$LINE_CHARS
-  fi
-  for COL in $(eval echo {0..$LINE_CHARS})
-  do
-    tput cup $ROW $COL
-    CHAR="${LINE:$COL:1}"
-    if [ "$CHAR" != "~" ]; then
-      echo "${LINE:$COL:1}"
-    fi
-  done
-  ROW=$((ROW+1))
-done <"$LOGO"
-
-COUNT=1
-INSERT=$((LONGEST+4))
-while IFS= read -r LINE
-do
-	tput cup $COUNT $INSERT
-	echo "$LINE"
-	COUNT=$((COUNT+1))
-done <"$BUILD"
-
+tput setaf 6 COUNT=1
+overlay $LOGO 1 0
+overlay $BUILD 3 25
 
 TOLAST=`expr \( $LOGO_LINES + 2 \)`
 echo -e "$(tput cup 9 18)v${RED}$VERSION${NRM}$(tput cup 4 4)"
