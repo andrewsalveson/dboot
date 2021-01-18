@@ -34,6 +34,7 @@ function overlay {
 
 # print background
 BG_LINES=$(cat $BG | wc -l | xargs)
+LOGO_LINES=$(cat $LOGO | wc -l | xargs)
 tput dim
 tput setaf 4
 while IFS= read -r LINE
@@ -45,14 +46,14 @@ tput sgr0
 # print logo
 tput bold
 tput setaf 6 COUNT=1
-overlay $LOGO 1 0
-overlay $BUILD 3 25
+overlay $LOGO 1 1
+overlay $BUILD 2 26
 
 TOLAST=`expr \( $LOGO_LINES + 2 \)`
 echo -e "$(tput cup 9 18)v${RED}$VERSION${NRM}$(tput cup 4 4)"
 
 tput sgr0
-tput cup $TOLAST
+tput cup $TOLAST 
 
 
 
