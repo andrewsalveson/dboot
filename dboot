@@ -19,7 +19,7 @@ function overlay {
   COL=$3
   while IFS= read -r LINE
   do
-    LINE_CHARS=$(grep -o . <<<"$LINE" | wc -l)
+    LINE_CHARS=$(grep -o . <<<"$LINE" | wc -l | xargs)
     for COL_i in $(eval echo {0..$LINE_CHARS})
     do
       tput cup $ROW $(( $COL + $COL_i ))
